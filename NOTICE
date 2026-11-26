@@ -1,0 +1,29 @@
+NOTICE
+======
+
+Mind Kit — https://github.com/drsamonline/app-mind-kit
+Copyright 2026 Dr Sohil Momin. Licensed under PolyForm Noncommercial 1.0.0 (see LICENSE).
+
+Third-party components
+----------------------
+
+None. Mind Kit has no third-party dependency and no CDN.
+
+Vendored from this project's own kits (same licence, same author), copied verbatim on
+26/11/2026:
+
+- web-kit 0.1.0 — docs/play/web-kit.js — the offline shell, storage helpers and PWA registration
+- export-kit 1.0.0 — docs/play/export-kit.js — Blob download, used to export the summary
+
+Neither kit is modified. Neither makes a network request.
+
+What this app is not
+--------------------
+
+It is not therapy, not a diagnosis, and not a crisis service. It computes sleep efficiency from the
+times the person enters, and it holds a worry until the window they gave it. It does not diagnose
+insomnia, does not set a sleep-restriction schedule, does not recommend a bedtime, and does not stand
+in for a clinician. The clinical decision stays with the clinician.
+
+The behaviour pattern is an association in the person's own diary, with the counts shown. It is not a
+claim about cause and it is not advice.
