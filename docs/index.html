@@ -1,89 +1,107 @@
 <!DOCTYPE html>
 <html lang="en-IN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mind Kit — set it aside until its window, and keep the times</title>
-<meta name="description" content="Put a worry in a window and give it a time; keep a CBT-I style sleep diary that computes from the times you enter. It does not solve, judge or diagnose.">
-<meta name="theme-color" content="#101418">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mind Kit — put it down until its time</title>
+<meta name="description" content="A worry with a window, and a sleep diary computed from times rather than ratings.">
+<meta name="theme-color" content="#eef2ef">
 <style>
-  :root{--bg:#f6f5f2;--panel:#fff;--ink:#14181d;--muted:#5d666f;--line:#d9d6cf;--accent:#2f6b5f}
+  :root{--bg:#eef2ef;--card:#fbfdfb;--ink:#1f2b26;--sage:#4b6f5e;--line:#cfdcd5;--grey:#64756c;--warm:#b5722f;
+        --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace;
+        --s0:clamp(11px,.4vw + 10px,12.5px);--s1:clamp(14px,.55vw + 12px,16.5px);--s2:clamp(18px,1.2vw + 14px,25px);
+        --display:clamp(32px,5.6vw,68px);--gut:clamp(16px,3.4vw,58px)}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif}
-  main{max-width:780px;margin:0 auto;padding:48px 20px 64px}
-  h1{font-size:34px;line-height:1.15;letter-spacing:-.02em;margin:0 0 10px}
-  .lede{font-size:18px;color:var(--muted);margin:0 0 26px}
-  .cta{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;padding:12px 20px;border-radius:9px}
-  .status{margin:26px 0;padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:9px;background:var(--panel);font-size:14px}
-  .status b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
-  h2{font-size:17px;margin:30px 0 8px}
-  ul{padding-left:20px}li{margin:4px 0}
-  code{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:13px;background:#eeede9;padding:1px 5px;border-radius:4px}
-  table{border-collapse:collapse;width:100%;font-size:14px;margin-top:8px}
-  th,td{text-align:left;border-bottom:1px solid var(--line);padding:7px 8px;vertical-align:top}
-  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
-  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
-  a{color:var(--accent)}
-  .note{margin:22px 0 0;padding:12px 14px;border:1px solid #c9ded8;border-left:4px solid var(--accent);border-radius:9px;background:#f1f8f6;color:#1d4a41;font-size:13.5px}
-</style>
-</head>
-<body>
-<main>
-  <h1>Mind Kit</h1>
-  <p class="lede">Set it aside until its window, and keep the times. It does not solve the worry, judge the night, or diagnose anything.</p>
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans)}
+  .planner{max-width:1660px;margin:0 auto;padding:0 0 58px}
+  .bar{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:10px var(--gut);
+       border-bottom:1px solid var(--line);font-family:var(--mono);font-size:var(--s0);
+       letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+  .bar b{color:var(--sage);font-weight:400}
+  .head{display:grid;gap:clamp(16px,2.4vw,40px);padding:clamp(24px,3.4vw,52px) var(--gut) clamp(16px,2vw,28px);grid-template-columns:1fr}
+  @media (min-width:980px){.head{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}}
+  h1{font-size:var(--display);line-height:.98;margin:0;letter-spacing:-.03em;font-weight:700}
+  .head p{margin:12px 0 0;font-size:var(--s2);line-height:1.45;color:var(--grey);max-width:42ch}
+  /* the two halves of the app, side by side on a wide screen */
+  .panes{display:grid;gap:clamp(12px,1.6vw,22px);padding:0 var(--gut) clamp(18px,2.4vw,32px);grid-template-columns:1fr}
+  @media (min-width:900px){.panes{grid-template-columns:repeat(2,1fr)}}
+  .pane{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:clamp(14px,1.8vw,24px)}
+  .pane h2{font-family:var(--mono);font-size:var(--s0);letter-spacing:.15em;text-transform:uppercase;color:var(--sage);margin:0 0 10px}
+  .worry{display:grid;gap:10px}
+  .w{border:1px solid var(--line);border-left:3px solid var(--sage);border-radius:8px;padding:10px 12px;font-size:var(--s1);display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+  .w .t{font-family:var(--mono);font-size:var(--s0);color:var(--grey);white-space:nowrap}
+  .w.due{border-left-color:var(--warm);background:#fdf8f0}
+  .sleep{display:grid;gap:8px;margin-top:4px}
+  .night{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font-size:var(--s1)}
+  .night .track{height:9px;background:#e3ebe6;border-radius:5px;overflow:hidden}
+  .night .track i{display:block;height:100%;background:var(--sage)}
+  .night .pct{font-family:var(--mono);font-size:var(--s0);color:var(--grey)}
+  .stat{margin-top:12px;font-family:var(--mono);font-size:var(--s0);color:var(--grey);line-height:1.7}
+  .cols{display:grid;gap:clamp(18px,2.6vw,46px);padding:0 var(--gut);grid-template-columns:1fr}
+  @media (min-width:860px){.cols{grid-template-columns:repeat(2,1fr)}}
+  @media (min-width:1380px){.cols{grid-template-columns:repeat(3,1fr)}}
+  h3{font-family:var(--mono);font-size:var(--s0);letter-spacing:.15em;text-transform:uppercase;color:var(--warm);margin:0 0 6px}
+  p{font-size:var(--s1);line-height:1.72;margin:0 0 12px}
+  .go{display:inline-block;background:var(--sage);color:#fff;text-decoration:none;padding:12px 22px;border-radius:8px;
+      font-family:var(--mono);font-size:var(--s0);letter-spacing:.14em;text-transform:uppercase;margin-top:6px}
+  .go:hover{background:var(--ink)}
+  .sponsor{margin:clamp(22px,3vw,38px) var(--gut) 0;border:1px solid var(--line);border-left:3px solid var(--warm);
+           background:var(--card);border-radius:8px;padding:12px 14px;font-size:var(--s0);color:var(--grey);line-height:1.6}
+  .sponsor a{color:var(--warm);text-decoration:none;border-bottom:1px solid currentColor}
+  .foot{margin:14px var(--gut) 0;font-family:var(--mono);font-size:var(--s0);color:#8a9a92;line-height:1.8}
+  .foot a{color:var(--sage)}
+</style></head>
+<body><div class="planner">
+  <div class="bar"><span>worry window · sleep ledger</span><span><b>2</b> halves · <b>1</b> job: put it down</span></div>
 
-  <a class="cta" href="play/index.html">Open Mind Kit</a>
-
-  <p class="note">This is a notebook with a clock in it. It is not therapy, not a diagnosis, and not a crisis service. If things are
-  bad now, that belongs with a clinician or a crisis line — not with an app.</p>
-
-  <div class="status">
-    <b>Status</b>
-    Built and working offline: a worry written down, given a time, and set aside until then — never parked without a window; and a sleep
-    diary that computes <strong>sleep efficiency</strong> from the times you enter (nine hours in bed, six asleep, 67%) and shows which
-    logged behaviour preceded the lower nights, with the counts.
-    <br><b>Release</b>: Windows EXE, Android APK and Linux binary, built from this source in CI — <a href="https://github.com/drsamonline/app-mind-kit/releases/tag/app-latest">app-latest</a>.
-    <br><b>Not built</b>: any advice. No CBT-I schedule, no restriction protocol, no recommendation — the spec forbids all three and the
-    clinical decision stays with the clinician.
+  <div class="head">
+    <div>
+      <h1>Mind Kit</h1>
+      <p>A worry with a window, and a night measured by its times — not by how you felt about it.</p>
+    </div>
   </div>
 
-  <h2>What it does</h2>
-  <ul>
-    <li>A worry goes in a window with a time. It does not come back before then, and it does come back after.</li>
-    <li>Sleep efficiency from times: time asleep over time in bed, per night and averaged.</li>
-    <li>Which logged behaviour preceded the lower-efficiency nights — with the counts, and named as an association.</li>
-  </ul>
+  <div class="panes">
+    <div class="pane">
+      <h2>worry window</h2>
+      <div class="worry">
+        <div class="w"><span>the bill I have not opened</span><span class="t">18:30 · waiting</span></div>
+        <div class="w"><span>the phone call to the bank</span><span class="t">19:00 · waiting</span></div>
+        <div class="w due"><span>the letter from the society</span><span class="t">now · window open</span></div>
+      </div>
+      <div class="stat">A worry cannot be parked without a time. The refusal names the field.</div>
+    </div>
 
-  <h2>What it will not do</h2>
-  <ul>
-    <li><strong>Park a worry with no time.</strong> A worry with no window is the thing this app exists to prevent.</li>
-    <li><strong>Solve the worry.</strong> Closing the window puts it down; it was never the job to fix it.</li>
-    <li><strong>Call a night good or bad.</strong> It shows arithmetic on your own times.</li>
-    <li><strong>Diagnose insomnia, or set a sleep-restriction schedule.</strong> That is a clinician's decision.</li>
-    <li><strong>Start empty when the store is unreadable.</strong> An empty list would read as “there is nothing to worry about”.</li>
-    <li><strong>Use a key or a network.</strong> No <code>fetch</code>, no endpoint; CSP <code>connect-src 'none'</code>.</li>
-  </ul>
+    <div class="pane">
+      <h2>sleep ledger</h2>
+      <div class="sleep">
+        <div class="night"><span class="pct">mon</span><span class="track"><i style="width:67%"></i></span><span class="pct">67%</span></div>
+        <div class="night"><span class="pct">tue</span><span class="track"><i style="width:89%"></i></span><span class="pct">89%</span></div>
+        <div class="night"><span class="pct">wed</span><span class="track"><i style="width:72%"></i></span><span class="pct">72%</span></div>
+      </div>
+      <div class="stat">9 hours in bed, 6 asleep → <b>67%</b>. Arithmetic on the times you entered, nothing else.</div>
+    </div>
+  </div>
 
-  <h2>When things go wrong</h2>
-  <table>
-    <tr><th>Case</th><th>What happens</th></tr>
-    <tr><td>Bad input</td><td>A worry with no text or no window is refused, with the empty field named. A night that adds up to no sleep is refused.</td></tr>
-    <tr><td>No network</td><td>Nothing changes; the app never calls out, so there is no offline message to show.</td></tr>
-    <tr><td>Storage full or unavailable</td><td>The save fails loudly, the text stays in the box, and the worry is never shown as set aside.</td></tr>
-    <tr><td>Corrupt saved state</td><td>Reported as unreadable, with the raw text offered for export before anything is reset.</td></tr>
-  </table>
+  <div class="cols">
+    <div>
+      <h3>What it does</h3>
+      <p>Holds a worry until its window opens and will not solve it. Keeps a sleep diary and computes efficiency from bedtime, get-up time and the minutes you were awake.</p>
+    </div>
+    <div>
+      <h3>What it refuses</h3>
+      <p>No schedule, no restriction protocol, no recommended bedtime, and no verdict on a night. An unreadable store is never emptied — an empty list reads as “there is nothing to worry about”.</p>
+    </div>
+    <div>
+      <h3>Get it</h3>
+      <p>Offline, on your device, with no account.</p>
+      <a class="go" href="play/index.html">open the kit →</a>
+    </div>
+  </div>
 
-  <h2>How to run it</h2>
-  <ul>
-    <li><strong>Here</strong>: <a href="play/index.html">play/index.html</a>, or install it from your browser's menu.</li>
-    <li><strong>Offline file</strong>: open <code>docs/play/index.html</code> straight from disk.</li>
-    <li><strong>Tests</strong>: <code>node tests/self-tests.js</code> — both specs' countable claims are asserted there.</li>
-  </ul>
-
-  <footer>
-    PolyForm Noncommercial 1.0.0 · (c) 2026 Dr Sohil Momin ·
-    <a href="https://github.com/drsamonline/app-mind-kit">source</a>
-  </footer>
-</main>
-</body>
-</html>
+  <div class="sponsor">
+    <strong>Sponsor this app.</strong> Free, offline, no account. If it earned its keep:
+    <a href="https://github.com/sponsors/drsamonline">github.com/sponsors/drsamonline</a>
+  </div>
+  <p class="foot">Windows · Android · Linux at <a href="https://github.com/drsamonline/app-mind-kit/releases/tag/app-latest">app-latest</a> ·
+  PolyForm Noncommercial 1.0.0 · (c) 2026 Dr Sohil Momin</p>
+</div></body></html>

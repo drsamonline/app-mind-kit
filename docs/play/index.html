@@ -54,6 +54,22 @@
   .big{font-size:26px;font-weight:700;line-height:1.1}
   footer{max-width:960px;margin:0 auto;padding:18px 20px 40px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
   [hidden]{display:none !important}
+
+  body{background:#eef2ef;color:#1f2b26;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  header.top{background:#fbfdfb;border-bottom:1px solid #cfdcd5}
+  header.top a{color:#4b6f5e}
+  main{background:#eef2ef;max-width:1200px}
+  .card{background:#fbfdfb;border:1px solid #cfdcd5;border-radius:10px}
+  .card h2{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#4b6f5e}
+  .card p.claim{color:#64756c}
+  button{border-radius:8px;border-color:#cfdcd5;background:#fbfdfb}
+  button.primary{background:#4b6f5e;border-color:#4b6f5e;color:#fff}
+  input[type=text]{background:#fff;border-color:#cfdcd5;border-radius:8px}
+  ul.list li{background:#fff;border-color:#cfdcd5;border-left-color:#4b6f5e;border-radius:8px}
+  .status.ok{border-color:#c2d6cb;background:#f2f8f4;color:#2f5344}
+  .status.bad{border-color:#e0bcbc;background:#fdf3f3;color:#7d1f1f}
+  .sponsor{margin:22px 0 0;border:1px solid #cfdcd5;border-left:3px solid #b5722f;background:#fbfdfb;border-radius:8px;padding:12px 14px;font-size:11.5px;color:#64756c;line-height:1.6}
+  .sponsor a{color:#b5722f;text-decoration:none;border-bottom:1px solid currentColor}
 </style>
 </head>
 <body>
@@ -141,6 +157,10 @@
     <span class="hint" id="exportNote"></span>
   </div>
 
+  <div class="sponsor">
+    <strong>Sponsor this app.</strong> Free, offline, no account. If it earned its keep:
+    <a href="https://github.com/sponsors/drsamonline">github.com/sponsors/drsamonline</a>
+  </div>
   <footer>
     Mind Kit keeps the worries and the diary on this device. It computes from the times you enter; it does not diagnose insomnia, does not set a
     sleep-restriction schedule, and does not stand in for a clinician.
